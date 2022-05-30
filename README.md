@@ -2,7 +2,7 @@
 In the docker-compose.yaml folder, run command:
 
 ```bash 
-docker-compose -f docker-compose-default.yaml -p apache_pinot_poc up
+docker-compose up
 ```
 
 You should be able to access [Trino Web UI](http://localhost:8080).
