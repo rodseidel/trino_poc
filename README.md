@@ -16,6 +16,17 @@ username: admin
 no password
 ```
 
+
+# Create User
+
+In the ./trino/pass_db folder run to create the user _test_:
+
+```bash
+htpasswd -B -C 10 password.db test
+```
+
+
+
 # In DBeaver or other Database Manager
 
 Show configured catalogs:
@@ -48,9 +59,9 @@ join [catalog_nameB].[table_name] b
 ```
 
 
-# Password file documentation
-https://trino.io/docs/current/security/password-file.html
 
 
-# Connector Redhisft
-https://trino.io/docs/current/connector/redshift.html
+# Links 
+[Trino Catalog Connector](https://trino.io/docs/current/connector.html)
+[Password file documentation](https://trino.io/docs/current/security/password-file.html)
+[Secure internal communication with TSL](https://trino.io/docs/current/security/internal-communication.html)
