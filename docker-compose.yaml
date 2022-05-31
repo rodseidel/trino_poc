@@ -16,7 +16,7 @@ services:
       EP_RO_USER: [your_ep_user]
       EP_RO_PASSWORD: [your_ep_password]
     ports:
-     - 8443:8443
+     - 8081:8080
     volumes:
       - ./config:/etc/trino
     restart: always

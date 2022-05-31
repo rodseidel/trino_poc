@@ -1,0 +1,39 @@
+{
+  "tables": [
+    {
+      "catalog": "redshift",
+      "schema": "wine_ds",
+      "group": "dataanalyst",
+      "table": ".*",
+      "privileges": ["SELECT"]
+    }
+  ],
+  "schemas": [
+    {
+      "group": "dataanalyst",
+      "catalog": "redshift",
+      "schema": "wine_ds"
+    }
+  ],
+  "catalogs": [
+    {
+      "group": "poweruser",
+      "catalog": "(redshift|ep)",
+      "allow": "read-only"
+    },
+    {
+      "group": "financial",
+      "catalog": "redshift",
+      "allow": "read-only"
+    },
+    {
+      "group": "ecommerce",
+      "catalog": "ep",
+      "allow": "read-only"
+    },
+    {
+      "group": "inactiveuser",
+      "allow": "none"
+    }
+  ]
+}

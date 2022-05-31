@@ -14,10 +14,14 @@ host: localhost
 port: 8080
 username: admin
 no password
+
+* Enable SSL=true into driver properties (not for now)
 ```
 
 
 # Create User
+
+*For while, although passwords are informed, this poc do not works correctly with authentication, only the authorization works fine.*
 
 In the ./trino/pass_db folder run to create the user _test_:
 
@@ -25,6 +29,32 @@ In the ./trino/pass_db folder run to create the user _test_:
 htpasswd -B -C 10 password.db test
 ```
 
+Users created (user/password):
+```
+admin/admin
+test1/123
+test2/1234
+test3/123
+test4/1234
+test5/123
+test6/1234
+test7/123
+test8/1234
+test9/123
+```
+
+Groups created:
+```
+poweruser:admin,test3
+financial:test4
+ecommerce:test5
+dataanalyst:test9
+inactiveuser:test8
+```
+
+Rules created:
+- *inactiveuser*: no access granted to all catalogs
+- 
 
 
 # In DBeaver or other Database Manager
@@ -62,6 +92,7 @@ join [catalog_nameB].[table_name] b
 
 
 # Links 
-[Trino Catalog Connector](https://trino.io/docs/current/connector.html)
-[Password file documentation](https://trino.io/docs/current/security/password-file.html)
-[Secure internal communication with TSL](https://trino.io/docs/current/security/internal-communication.html)
+- [Trino Catalog Connector](https://trino.io/docs/current/connector.html)
+- [Password file documentation](https://trino.io/docs/current/security/password-file.html)
+- [Secure internal communication with TSL](https://trino.io/docs/current/security/internal-communication.html)
+- [File system access control](https://trino.io/docs/current/security/file-system-access-control.html)
