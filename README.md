@@ -26,7 +26,7 @@ The Redshift and EP catalogs are already configured.
 
 **For while, although passwords are informed, this poc do not works correctly with authentication, only the authorization works fine.**
 
-Users are created executing the command below in */etc/trino/db* folder:
+Users are created executing the command below in **/etc/trino/db** folder:
 
 ```bash
 htpasswd -B -C 10 password.db user_name
@@ -48,7 +48,7 @@ test9/123
 
 # User Groups
 
-User groups are created using file */etc/trino/db/group.txt* as follows.
+User groups are created using file **/etc/trino/db/group.txt** as follows.
 
 Created groups (group name:user list-comma separated):
 ```
@@ -63,7 +63,7 @@ b2bdataanalyst:test2
 
 # Access Control Rules
 
-The rules are created in file /etc/trino/db/rules.json. 
+The rules are created in file **/etc/trino/db/rules.json**. 
 
 Rules created (all rules allow only SELECT):
 - group *poweruser*: access all tables from all schemas from all catalogs;
@@ -124,4 +124,4 @@ join [catalog_nameB].[table_name] b
 
 # Questions
 
-- How to install apache2-utils package in container (yum package manager)?.
+- How to install apache2-utils package in container via Dockerfile?
