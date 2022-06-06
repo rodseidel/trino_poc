@@ -24,12 +24,12 @@ The Redshift and EP catalogs are already configured.
 
 # Users
 
-*For while, although passwords are informed, this poc do not works correctly with authentication, only the authorization works fine.*
+**For while, although passwords are informed, this poc do not works correctly with authentication, only the authorization works fine.**
 
-In /etc/trino/pass_db run the command below to create the user _test_:
+Users are created executing the command below in */etc/trino/db* folder:
 
 ```bash
-htpasswd -B -C 10 password.db test
+htpasswd -B -C 10 password.db user_name
 ```
 
 Created users (user/password):
@@ -48,7 +48,7 @@ test9/123
 
 # User Groups
 
-User groups are created using file /etc/trino/db/group.txt as follows.
+User groups are created using file */etc/trino/db/group.txt* as follows.
 
 Created groups (group name:user list-comma separated):
 ```
@@ -56,7 +56,9 @@ poweruser:admin,test3
 financial:test4
 ecommerce:test5
 dataanalyst:test9
-inactiveuser:test8
+superuser:test8
+basicuser:test1
+b2bdataanalyst:test2
 ```
 
 # Access Control Rules
@@ -72,9 +74,9 @@ Rules created (all rules allow only SELECT):
 - group *dataanalyst*: access only schema _wine_ds_ from Redshift catalog;
 - group *basicreader*: access only only tables _"wine_stg.mega_mgglo*"_ but with masked sensible data.
     - Column agn_st_nome: first word concatenated with xxxxxxxx;
-    - Column agn_st_cgc: string 'XX.XXX.XXX/' concatenation with last 7 chars.
+    - Column agn_st_cgc: string 'XX.XXX.XXX/' concatenated with last 7 chars.
 - group *b2bdataanalyst*: access only table revenue_item from wine_ds schema from Redshift catalog, but only rows with bu_decription column equals 'B2B are allowed;
-- user _test8_ can access only only tables _"wine_ds.*revenue*"_;
+- user _test8_ can access only tables that contains *revenue* in table name;
 - Users without group or not specificaly alowed: no access granted to all catalogs;
 
 
