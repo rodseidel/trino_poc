@@ -1,28 +1,17 @@
 {
-  "tables": [
-    {
-      "catalog": "redshift",
-      "schema": "wine_ds",
-      "group": "dataanalyst",
-      "table": ".*",
-      "privileges": ["SELECT"]
-    }
-  ],
-  "schemas": [
-    {
-      "group": "dataanalyst",
-      "catalog": "redshift",
-      "schema": "wine_ds"
-    }
-  ],
   "catalogs": [
     {
       "group": "poweruser",
-      "catalog": "(redshift|ep)",
+      "catalog": ".*",
       "allow": "read-only"
     },
     {
-      "group": "financial",
+      "group": "superuser",
+      "catalog": "redshift|ep",
+      "allow": "read-only"
+    },
+    {
+      "group": "financial|basicuser|b2bdataanalyst",
       "catalog": "redshift",
       "allow": "read-only"
     },
@@ -32,8 +21,123 @@
       "allow": "read-only"
     },
     {
-      "group": "inactiveuser",
-      "allow": "none"
+      "group": "dataanalyst",
+      "catalog": "redshift",
+      "allow": "read-only"
+    },
+    {
+      "user": "test6",
+      "catalog": "redshift",
+      "allow": "read-only"
+    }
+  ],
+  "schemas": [
+    {
+      "group": "poweruser",
+      "catalog": ".*",
+      "schema": ".*",
+      "owner": false
+    },
+    {
+      "group": "superuser",
+      "catalog": "redshift|ep",
+      "schema": ".*",
+      "owner": false
+    },
+    {
+      "group": "ecommerce",
+      "catalog": "ep",
+      "schema": ".*",
+      "owner": false
+    },
+    {
+      "group": "dataanalyst|b2bdataanalyst",
+      "catalog": "redshift",
+      "schema": "wine_ds",
+      "owner": false
+    },
+    {
+      "user": "test6",
+      "catalog": "redshift",
+      "schema": "wine_ds",
+      "owner": false
+    },
+    {
+      "catalog": "redshift",
+      "schema": "wine_stg",
+      "group": "financial|basicuser",
+      "owner": false
+    }
+  ],
+  "tables": [
+    {
+      "catalog": ".*",
+      "schema": ".*",
+      "group": "poweruser",
+      "privileges": ["SELECT"]
+    },
+    {
+      "catalog": "redshift|ep",
+      "schema": ".*",
+      "group": "superuser",
+      "privileges": ["SELECT"]
+    },
+    {
+      "catalog": "ep",
+      "schema": ".*",
+      "group": "ecommerce",
+      "privileges": ["SELECT"]
+    },
+    {
+      "catalog": "redshift",
+      "schema": "wine_ds",
+      "group": "dataanalyst",
+      "privileges": ["SELECT"]
+    },
+    {
+      "catalog": "redshift",
+      "schema": "wine_ds",
+      "group": "b2bdataanalyst",
+      "table": "revenue_item",
+      "privileges": ["SELECT"],
+      "filter": "(bu_description = 'B2B')"
+    },
+    {
+      "catalog": "redshift",
+      "schema": "wine_ds",
+      "user": "test6",
+      "table": "\\w*revenue\\w*",
+      "privileges": ["SELECT"]
+    },
+    {
+      "catalog": "redshift",
+      "schema": "wine_stg",
+      "group": "financial",
+      "table": "mega_mgfin\\w*|mega_mgglo\\w*",
+      "privileges": ["SELECT"],
+      "columns": [
+            {
+                "name": "agn_st_cgc",
+                "allow": false
+            }
+      ]
+    },
+    {
+      "catalog": "redshift",
+      "schema": "wine_stg",
+      "group": "basicuser",
+      "table": "mega_mgglo\\w*",
+      "privileges": ["SELECT"],
+      "columns": [
+            {
+              "name": "agn_st_cgc",
+              "mask": "cast('XX.XXX.XXX/' || substr(agn_st_cgc,-7) as varchar(36))"
+            },
+            {
+              "name": "agn_st_nome",
+              "mask": "cast(split_part(agn_st_nome,' ',1) || ' xxxxxxxx' as varchar(200))"
+            }
+      ]
     }
   ]
 }
