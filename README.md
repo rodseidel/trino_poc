@@ -17,19 +17,22 @@ no password
 
 * Enable SSL=true into driver properties (not for now)
 ```
+# Catalogs
+
+The Redshift and EP catalogs are already configured.
 
 
-# Create User
+# Users
 
 *For while, although passwords are informed, this poc do not works correctly with authentication, only the authorization works fine.*
 
-In the ./trino/pass_db folder run to create the user _test_:
+In /etc/trino/pass_db run the command below to create the user _test_:
 
 ```bash
 htpasswd -B -C 10 password.db test
 ```
 
-Users created (user/password):
+Created users (user/password):
 ```
 admin/admin
 test1/123
@@ -43,7 +46,11 @@ test8/1234
 test9/123
 ```
 
-Groups created:
+# User Groups
+
+User groups are created using file /etc/trino/db/group.txt as follows.
+
+Created groups (group name:user list-comma separated):
 ```
 poweruser:admin,test3
 financial:test4
@@ -52,9 +59,23 @@ dataanalyst:test9
 inactiveuser:test8
 ```
 
-Rules created:
-- *inactiveuser*: no access granted to all catalogs
-- 
+# Access Control Rules
+
+The rules are created in file /etc/trino/db/rules.json. 
+
+Rules created (all rules allow only SELECT):
+- group *poweruser*: access all tables from all schemas from all catalogs;
+- group *superuser*: access all tables from all schemas from EP/Redshift catalogs only;
+- group *ecommerce*: access all tables from all schemas from EP catalog only;
+- group *financial*: access only tables _"wine_stg.mega_mgfin*"_ e _"wine_stg.mega_mgglo*"_ from Redshift catalog, but is not allowed query agn_st_cgc (CNPJ) from wine_stg.mega_mgglo_glo_agentes;
+    - Queries that select disallowed columns will fail with error message:  Access Denied: Cannot select from table [catalog_name].[table_name].
+- group *dataanalyst*: access only schema _wine_ds_ from Redshift catalog;
+- group *basicreader*: access only only tables _"wine_stg.mega_mgglo*"_ but with masked sensible data.
+    - Column agn_st_nome: first word concatenated with xxxxxxxx;
+    - Column agn_st_cgc: string 'XX.XXX.XXX/' concatenation with last 7 chars.
+- group *b2bdataanalyst*: access only table revenue_item from wine_ds schema from Redshift catalog, but only rows with bu_decription column equals 'B2B are allowed;
+- user _test8_ can access only only tables _"wine_ds.*revenue*"_;
+- Users without group or not specificaly alowed: no access granted to all catalogs;
 
 
 # In DBeaver or other Database Manager
@@ -96,3 +117,9 @@ join [catalog_nameB].[table_name] b
 - [Password file documentation](https://trino.io/docs/current/security/password-file.html)
 - [Secure internal communication with TSL](https://trino.io/docs/current/security/internal-communication.html)
 - [File system access control](https://trino.io/docs/current/security/file-system-access-control.html)
+- [Example rules.json file](https://github.com/operate-first/apps/blob/master/kfdefs/overlays/osc/osc-cl1/trino/configs/rules.json)
+- [String operators](https://trino.io/docs/current/functions/string.html)
+
+# Questions
+
+- How to install apache2-utils package in container (yum package manager)?.
