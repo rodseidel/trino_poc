@@ -19,6 +19,8 @@ no password
 ```
 # Catalogs
 
+Catalogs can be added by creating a file like *[catalog_name].properties* in */etc/trino/catalog* folder.
+
 The Redshift and EP catalogs are already configured.
 
 
