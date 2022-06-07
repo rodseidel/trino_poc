@@ -1,0 +1,22 @@
+version: '3'
+
+
+services:
+  trino:
+    build: ./Dockerfile
+    hostname: trino
+    environment:
+      REDSHIFT_HOST: [your_redshift_host]
+      REDSHIFT_PORT: 5439
+      REDSHIFT_DATABASE: [your_redshift_database]
+      REDSHIFT_USER: [your_redshift_user]
+      REDSHIFT_PASSWORD: [your_redshift_password]
+      EP_RO_HOST: [your_ep_host]
+      EP_RO_PORT: 3306
+      EP_RO_USER: [your_ep_user]
+      EP_RO_PASSWORD: [your_ep_password]
+    ports:
+     - 8081:8080
+    volumes:
+      - ./config:/etc/trino
+    restart: always

@@ -1,9 +1,14 @@
 # Start
 In the docker-compose.yaml folder, run command:
 
-```bash 
-docker-compose up
-```
+  - For Trino single node (all in one - coordinator + worker):
+    ```bash 
+    docker-compose -f docker-compose-single-node.yaml -p trino_poc up
+    ```
+  - For Trino with 3 nodes (coordinator + 2 workers):
+    ```bash 
+    docker-compose -f docker-compose-coordinator-worker.yaml -p trino_poc up
+    ```
 
 You should be able to access [Trino Web UI](http://localhost:8080).
 
@@ -124,6 +129,3 @@ join [catalog_nameB].[table_name] b
 - [Example rules.json file](https://github.com/operate-first/apps/blob/master/kfdefs/overlays/osc/osc-cl1/trino/configs/rules.json)
 - [String operators](https://trino.io/docs/current/functions/string.html)
 
-# Questions
-
-- How to install apache2-utils package in container via Dockerfile?
