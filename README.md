@@ -32,6 +32,7 @@ The Redshift and EP catalogs are already configured.
 # Users
 
 **For while, although passwords are informed, this poc do not works correctly with authentication, only the authorization works fine.**
+See: [TLS and HTTPS](https://trino.io/docs/current/security/tls.html)
 
 Users are created executing the command below in **/etc/trino/db** folder:
 
@@ -119,9 +120,8 @@ join [catalog_nameB].[table_name] b
 ```
 
 
-
-
 # Links 
+- [Minimum requirements](https://trino.io/docs/current/installation/deployment.html#config-properties)
 - [Trino Catalog Connector](https://trino.io/docs/current/connector.html)
 - [Password file documentation](https://trino.io/docs/current/security/password-file.html)
 - [Secure internal communication with TSL](https://trino.io/docs/current/security/internal-communication.html)
