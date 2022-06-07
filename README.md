@@ -1,5 +1,11 @@
 # Start
-In the docker-compose.yaml folder, run command:
+
+## First 
+Set env variables in docker-compose yaml used to configure catalogs.
+
+
+## Second 
+In the docker-compose file folder, run command:
 
   - For Trino single node (all in one - coordinator + worker):
     ```bash 
@@ -12,7 +18,7 @@ In the docker-compose.yaml folder, run command:
 
 You should be able to access [Trino Web UI](http://localhost:8080).
 
-
+## Third
 You can access the Trino SQL Engine by creating into DBeaver a Trino Connection, with this values:
 ```
 host: localhost
